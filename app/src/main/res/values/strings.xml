@@ -2,6 +2,38 @@
     <string name="app_name">InClass05</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="Login_label">Login</string>
-    <string name="CreateAccount">Create New Account</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Invalid User Credentials"</string>
+    <string name="login_success">"Login Successful"</string>
+    <string name="update_success">"Updated Successfully"</string>
+    <string name="Submit">Submit</string>
+    <string name="invalid_input">"Please Enter Valid Input"</string>
+    <string name="user_exist">"Duplicate Account"</string>
+
+    <string name="login">Login</string>
+    <string name="register_account">Create a New Account</string>
+    <string name="welcome_account">Welcome!!</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="logout_button">Logout</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="valid_name">enter valid  name</string>
+    <string name="valid_email">enter valid email</string>
+    <string name="valid_password">enter valid password</string>
+    <string name="account">Account</string>
+    <string name="update_account">Update Account</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Register">Register Account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
+
 </resources>

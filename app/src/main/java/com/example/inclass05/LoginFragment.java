@@ -1,47 +1,40 @@
 package com.example.inclass05;
 
+
+/*
+ *Assignment In class 05
+ * FileName:LoginFrgament
+ * Group 21
+ * Harshitha Govind-801212772
+ * Surya Teja Chintala-801212229
+ * */
+
+
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class LoginFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public LoginFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LoginFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static LoginFragment newInstance(String param1, String param2) {
         LoginFragment fragment = new LoginFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,16 +42,94 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        // Set title bar
+        ((MainActivity) getActivity())
+                .setActionBarTitle(getResources().getString(R.string.login));
+
     }
 
+    TextView editTextLoginEmailAddress,editTextLoginPassword;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    final String TAG="Login Fragment";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        View view=inflater.inflate(R.layout.fragment_login, container, false);
+
+        view.findViewById(R.id.updateButton).
+                setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //User Account login
+                        editTextLoginEmailAddress = view.findViewById(R.id.editTextLoginEmailAddress);
+                        editTextLoginPassword = view.findViewById(R.id.editTextLoginPassword);
+                        String email = editTextLoginEmailAddress.getText().toString();
+                        String password = editTextLoginPassword.getText().toString();
+                        //Valiation of User Account
+                        DataServices.login(email,
+                                password,
+                                new DataServices.AuthResponse() {
+                                    @Override
+                                    public void onSuccess(String token) {
+                                        if (token != null) {
+                                            DataServices.getAccount(token, new DataServices.AccountResponse() {
+                                                @Override
+                                                public void onSuccess(DataServices.Account account) {
+                                                    mListener.sendUser(account);
+                                                    Log.d("TAG", "sendUser: login success");
+
+                                                }
+
+                                                @Override
+                                                public void onFailure(DataServices.RequestException exception) {
+                                                    Log.d("TAG", exception.getMessage());
+
+                                                    Toast.makeText(getActivity().getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                            Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.login_success), Toast.LENGTH_SHORT).show();
+                                            Log.d(TAG, getResources().getString(R.string.login_success));
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(DataServices.RequestException exception) {
+                                        Log.d("TAG", exception.getMessage());
+
+                                        Toast.makeText(getActivity().getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
+                    }
+                });
+
+
+        // Open Register Fragment
+        view.findViewById(R.id.registerButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.newuser();
+            }
+        });
+        return view;
+    }
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof loginListener){
+            mListener = (loginListener)context;
+        }else{
+            throw new RuntimeException(context.toString()+"login check");
+        }
+    }
+    //Creating login interface
+    loginListener mListener;
+    public interface loginListener{
+        void sendUser(DataServices.Account userAccount);
+        void newuser();
     }
 }
