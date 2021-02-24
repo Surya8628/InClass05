@@ -49,12 +49,18 @@ public class AppList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set title bar
+        ((MainActivity) getActivity())
+                .setActionBarTitle(getResources().getString(R.string.app_list));
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    public void setPassedData(String token,String selectedCategory) {
+        AppCategories.tokenValue=token;
+        AppCategories.selectedCategory= selectedCategory;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

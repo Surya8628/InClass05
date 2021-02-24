@@ -47,4 +47,16 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.log
                 .replace(R.id.containerView, new LoginFragment(),"loginfragment")
                 .commit();
     }
+
+    @Override
+    public void goToAppList(String token, String SelectedCategory) {
+//        DataServices.Account profile = new DataServices.Account(userAccount.getName(),userAccount.getEmail(),userAccount.getPassword());
+        AppList appList =new AppList();
+//        token,SelectedCategory
+        appList.setPassedData(token,SelectedCategory);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.containerView,appList,"appList")
+                .commit();
+    }
 }

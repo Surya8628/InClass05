@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,8 +29,9 @@ public class AppCategories extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_APP_CATEGORIES = "appCategories";
     private static final String ARG_TOKEN = "token";
+    public static String selectedCategory;
+    public static String tokenValue;
     private static DataServices.Account userProfile;
-    private static String tokenValue;
 
     // TODO: Rename and change types of parameters
     private Serializable mParam1;
@@ -115,7 +117,12 @@ public class AppCategories extends Fragment {
         super.onActivityCreated(savedInstanceState);
         adapter=new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1,android.R.id.text1,categories);
         appCategories.setAdapter(adapter);
-
+        appCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                aListener.goToAppList(tokenValue,categories.get(position));
+            }
+        });
     }
 
     @Override
@@ -131,5 +138,6 @@ public class AppCategories extends Fragment {
     AppCategories.appCategoriesListener aListener;
     public interface appCategoriesListener{
         void goBackToLogin();
+        void goToAppList(String token,String SelectedCategory);
     }
 }
