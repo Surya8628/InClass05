@@ -77,7 +77,7 @@ public class LoginFragment extends Fragment {
                                             DataServices.getAccount(token, new DataServices.AccountResponse() {
                                                 @Override
                                                 public void onSuccess(DataServices.Account account) {
-                                                    mListener.sendUser(account);
+                                                    mListener.sendUser(token,account);
                                                     Log.d("TAG", "sendUser: login success");
 
                                                 }
@@ -129,7 +129,7 @@ public class LoginFragment extends Fragment {
     //Creating login interface
     loginListener mListener;
     public interface loginListener{
-        void sendUser(DataServices.Account userAccount);
+        void sendUser(String token,DataServices.Account userAccount);
         void newuser();
     }
 }

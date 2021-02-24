@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="5dp"
     tools:context=".AppCategories">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/welcomeText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="3dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center_horizontal"
+        android:padding="2dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/appCategoriesList"
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:layout_marginTop="50dp">
+
+
+    </ListView>
+
+    <Button
+        android:id="@+id/logOutButton"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="600dp"
+        android:gravity="center_horizontal"
+        android:text="@string/logout_button"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:backgroundTint="@android:color/darker_gray" />
 
 </FrameLayout>
