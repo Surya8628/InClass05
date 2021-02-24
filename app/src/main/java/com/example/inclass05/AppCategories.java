@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -92,12 +93,13 @@ public class AppCategories extends Fragment {
         DataServices.getAppCategories(tokenValue, new DataServices.DataResponse<String>() {
             @Override
             public void onSuccess(ArrayList<String> data) {
+
                 categories=data;
             }
 
             @Override
             public void onFailure(DataServices.RequestException exception) {
-
+                Toast.makeText(getActivity().getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         adapter=new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1,android.R.id.text1,categories);
