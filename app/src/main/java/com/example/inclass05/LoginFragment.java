@@ -1,6 +1,3 @@
-package com.example.inclass05;
-
-
 /*
  *Assignment In class 05
  * FileName:LoginFrgament
@@ -8,7 +5,7 @@ package com.example.inclass05;
  * Harshitha Govind-801212772
  * Surya Teja Chintala-801212229
  * */
-
+package com.example.inclass05;
 
 import android.content.Context;
 import android.os.Bundle;
