@@ -94,7 +94,8 @@ ListView appListView;
         appListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                DataServices.App row=appListData.get(position);
+            aListener.goToAppDetails(tokenValue,row);
             }
         });
         return view;
