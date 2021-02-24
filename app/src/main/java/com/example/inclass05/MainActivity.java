@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.loginListener,AppCategories.appCategoriesListener{
+public class MainActivity extends AppCompatActivity implements LoginFragment.loginListener,AppCategories.appCategoriesListener,AppList.appListListener{
     ArrayAdapter<String> adapter;
     ArrayList<String> categories=new ArrayList<>();
     @Override
@@ -50,13 +50,25 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.log
 
     @Override
     public void goToAppList(String token, String SelectedCategory) {
-//        DataServices.Account profile = new DataServices.Account(userAccount.getName(),userAccount.getEmail(),userAccount.getPassword());
         AppList appList =new AppList();
-//        token,SelectedCategory
+
         appList.setPassedData(token,SelectedCategory);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.containerView,appList,"appList")
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void goToAppDetails(String token, DataServices.App selectedApp) {
+        AppDetails appDetailsList =new AppDetails();
+
+        appDetailsList.setPassedData(token,selectedApp);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.containerView,appDetailsList,"appDetailsList")
+                .addToBackStack(null)
                 .commit();
     }
 }

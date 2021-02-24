@@ -31,6 +31,7 @@ public class AppCategories extends Fragment {
     private static final String ARG_TOKEN = "token";
     public static String selectedCategory;
     public static String tokenValue;
+    public static DataServices.App appRowDetails;
     private static DataServices.Account userProfile;
 
     // TODO: Rename and change types of parameters
@@ -87,7 +88,7 @@ public class AppCategories extends Fragment {
         View view= inflater.inflate(R.layout.fragment_app_categories, container, false);
         welcomeText=view.findViewById(R.id.welcomeText);
         appCategories=view.findViewById(R.id.appCategoriesList);
-        welcomeText.setText("Welcome"+userProfile.getName());
+        welcomeText.setText("Welcome "+userProfile.getName());
         DataServices.getAppCategories(tokenValue, new DataServices.DataResponse<String>() {
             @Override
             public void onSuccess(ArrayList<String> data) {

@@ -49,16 +49,23 @@ public class AppDetails extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set title bar
+        ((MainActivity) getActivity())
+                .setActionBarTitle(getResources().getString(R.string.app_details));
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    public void setPassedData(String token,DataServices.App appDetails) {
+        AppCategories.tokenValue=token;
+        AppCategories.appRowDetails= appDetails;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_app_details, container, false);
+        View view= inflater.inflate(R.layout.fragment_app_details, container, false);
+        return view;
     }
 }

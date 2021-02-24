@@ -1,12 +1,21 @@
 package com.example.inclass05;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+
+import static com.example.inclass05.AppCategories.selectedCategory;
+import static com.example.inclass05.AppCategories.tokenValue;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,11 +28,12 @@ public class AppList extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    AppListRowItemAdapter rowItemAdapter;
+ListView appListView;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    ArrayList<DataServices.App> appListData;
     public AppList() {
         // Required empty public constructor
     }
@@ -58,13 +68,49 @@ public class AppList extends Fragment {
         }
     }
     public void setPassedData(String token,String selectedCategory) {
-        AppCategories.tokenValue=token;
+        tokenValue=token;
         AppCategories.selectedCategory= selectedCategory;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_app_list, container, false);
+        View view= inflater.inflate(R.layout.fragment_app_list, container, false);
+
+        DataServices.getAppsByCategory(tokenValue, selectedCategory, new DataServices.DataResponse<DataServices.App>() {
+            @Override
+            public void onSuccess(ArrayList<DataServices.App> data) {
+                appListData=data;
+            }
+
+            @Override
+            public void onFailure(DataServices.RequestException exception) {
+
+            }
+        });
+        appListView=view.findViewById(R.id.appListView);
+        rowItemAdapter=new AppListRowItemAdapter(getActivity().getApplicationContext(),R.layout.app_list_row_item,appListData);
+        appListView.setAdapter(rowItemAdapter);
+        appListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+        return view;
+    }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof AppList.appListListener){
+            aListener = (AppList.appListListener)context;
+        }else{
+            throw new RuntimeException(context.toString()+"app list check");
+        }
+    }
+    //Creating App List interface
+    AppList.appListListener aListener;
+    public interface appListListener{
+        void goToAppDetails(String token,DataServices.App selectedApp);
     }
 }
