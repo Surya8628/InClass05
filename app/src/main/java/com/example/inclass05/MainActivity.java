@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.log
 
     @Override
     public void sendUser(DataServices.Account userAccount) {
-        
+        Log.d("TAG", "sendUser: login success");
     }
 
     @Override
