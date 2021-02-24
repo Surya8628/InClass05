@@ -7,7 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.loginListener,AppCategories.appCategoriesListener,AppList.appListListener{
+public class MainActivity extends AppCompatActivity implements LoginFragment.loginListener,
+                                                                AppCategories.appCategoriesListener,
+                                                                AppList.appListListener,
+                                                                RegisterFragment.RegisterListener{
     ArrayAdapter<String> adapter;
     ArrayList<String> categories=new ArrayList<>();
     @Override
@@ -38,9 +41,11 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.log
 
     @Override
     public void newuser() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.containerView,new RegisterFragment(),"registerfragment")
+                .commit();
 
     }
-
     @Override
     public void goBackToLogin() {
         getSupportFragmentManager().beginTransaction()
@@ -70,5 +75,20 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.log
                 .replace(R.id.containerView,appDetailsList,"appDetailsList")
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void registerUser(String token,DataServices.Account userAccount) {
+        DataServices.Account profile = new DataServices.Account(userAccount.getName(),userAccount.getEmail(),userAccount.getPassword());
+        AppCategories appCategories =new AppCategories(token,userAccount);
+
+        appCategories.setPassedData(token,profile);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.containerView,appCategories,"appCategories")
+                .addToBackStack(null)
+                .commit();
+
+
     }
 }
