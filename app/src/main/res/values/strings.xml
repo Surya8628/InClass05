@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">InClass05</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Login_label">Login</string>
+    <string name="CreateAccount">Create New Account</string>
+</resources>
