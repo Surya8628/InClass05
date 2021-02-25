@@ -1,18 +1,15 @@
 /*
  *Assignment In class 05
- * FileName:RegisterFrgament
+ * FileName:RegisterFragment
  * Group 21
  * Harshitha Govind-801212772
  * Surya Teja Chintala-801212229
  * */
 package com.example.inclass05;
-
 import android.content.Context;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,17 +17,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RegisterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RegisterFragment extends Fragment {
 
     public RegisterFragment() {
         // Required empty public constructor
     }
-    public static RegisterFragment newInstance(String param1, String param2) {
+    public static RegisterFragment newInstance() {
         RegisterFragment fragment = new RegisterFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -40,9 +32,7 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Set title bar
-        ((MainActivity) getActivity())
-                .setActionBarTitle(getResources().getString(R.string.Register));
+
     }
     TextView editTextRegisterName, editTextRegisterEmail,editTextRegisterPassword;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -52,6 +42,8 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_register,container,false);
+        //Set title bar
+        getActivity().setTitle(getResources().getString(R.string.Register));
 
         view.findViewById(R.id.SubmitButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,13 +64,10 @@ public class RegisterFragment extends Fragment {
                                 public void onSuccess(DataServices.Account account) {
                                    RListener.registerUser(token,account);
                                     Log.d("TAG", "sendUser: login success");
-
                                 }
-
                                 @Override
                                 public void onFailure(DataServices.RequestException exception) {
                                     Log.d("TAG", exception.getMessage());
-
                                     Toast.makeText(getActivity().getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -86,18 +75,13 @@ public class RegisterFragment extends Fragment {
                             Log.d("TAG", getResources().getString(R.string.login_success));
                         }
                     }
-
                     @Override
                     public void onFailure(DataServices.RequestException exception) {
                         Log.d("TAG", exception.getMessage());
-
                         Toast.makeText(getActivity().getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
                 });
-
-
-
             }
 
         });
@@ -113,15 +97,14 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if(context instanceof RegisterListener){
-            RListener = (RegisterListener)context;
+        if(context instanceof RegisterFragment.RegisterListener){
+            RListener = (RegisterFragment.RegisterListener)context;
         }else{
             throw new RuntimeException(context.toString()+"Register check");
         }
-
     }
     //Creating Register Interface
-    RegisterListener RListener;
+    RegisterFragment.RegisterListener RListener;
     public interface RegisterListener{
         void goBackToLogin();
         void registerUser(String token,DataServices.Account userAccount);

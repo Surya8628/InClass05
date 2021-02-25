@@ -1,3 +1,5 @@
+package com.example.inclass05;
+
 /*
  *Assignment In class 05
  * FileName:LoginFrgament
@@ -5,7 +7,7 @@
  * Harshitha Govind-801212772
  * Surya Teja Chintala-801212229
  * */
-package com.example.inclass05;
+
 
 import android.content.Context;
 import android.os.Bundle;
@@ -40,9 +42,7 @@ public class LoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Set title bar
-        ((MainActivity) getActivity())
-                .setActionBarTitle(getResources().getString(R.string.login));
+
 
     }
 
@@ -54,6 +54,8 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_login, container, false);
+        // Set title bar
+         getActivity().setTitle(getResources().getString(R.string.login));
 
         view.findViewById(R.id.updateButton).
                 setOnClickListener(new View.OnClickListener() {
@@ -75,14 +77,9 @@ public class LoginFragment extends Fragment {
                                                 @Override
                                                 public void onSuccess(DataServices.Account account) {
                                                     mListener.sendUser(token,account);
-                                                    Log.d("TAG", "sendUser: login success");
-
                                                 }
-
                                                 @Override
                                                 public void onFailure(DataServices.RequestException exception) {
-                                                    Log.d("TAG", exception.getMessage());
-
                                                     Toast.makeText(getActivity().getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
                                                 }
                                             });
@@ -93,16 +90,11 @@ public class LoginFragment extends Fragment {
 
                                     @Override
                                     public void onFailure(DataServices.RequestException exception) {
-                                        Log.d("TAG", exception.getMessage());
-
                                         Toast.makeText(getActivity().getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
-
                                     }
                                 });
                     }
                 });
-
-
         // Open Register Fragment
         view.findViewById(R.id.registerButton).setOnClickListener(new View.OnClickListener() {
             @Override

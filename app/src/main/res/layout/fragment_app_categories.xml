@@ -23,7 +23,7 @@
     <ListView
         android:id="@+id/appCategoriesList"
         android:layout_width="match_parent"
-        android:layout_height="570dp"
+        android:layout_height="500dp"
         android:layout_marginTop="50dp">
 
 
@@ -33,7 +33,7 @@
         android:id="@+id/logOutButton"
         android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="600dp"
+        android:layout_marginTop="550dp"
         android:gravity="center_horizontal"
         android:text="@string/logout_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"

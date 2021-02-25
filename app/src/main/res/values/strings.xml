@@ -17,7 +17,6 @@
     <string name="Submit">Submit</string>
     <string name="invalid_input">"Please Enter Valid Input"</string>
     <string name="user_exist">"Duplicate Account"</string>
-
     <string name="login">Login</string>
     <string name="register_account">Create a New Account</string>
     <string name="welcome_account">Welcome!!</string>
@@ -37,10 +36,9 @@
     <string name="app_categories">App Categories</string>
     <string name="app_list">Top Paid Apps</string>
     <string name="app_details">App Details</string>
-
     <string name="genre">Genres</string>
-
-
-
+    <string name="app_cat">app categories check</string>
+    <string name="Welcome">Welcome</string>
+    <string name="app_check">app list check</string>
 
 </resources>

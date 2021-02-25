@@ -6,66 +6,38 @@
  * Surya Teja Chintala-801212229
  * */
 package com.example.inclass05;
-
 import android.content.Context;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
+import android.widget.Toast;
 import java.util.ArrayList;
-
 import static com.example.inclass05.AppCategories.selectedCategory;
 import static com.example.inclass05.AppCategories.tokenValue;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AppList#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class AppList extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     AppListRowItemAdapter rowItemAdapter;
-ListView appListView;
-    // TODO: Rename and change types of parameters
-
+    ListView appListView;
     ArrayList<DataServices.App> appListData;
     public AppList() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-
-     * @return A new instance of fragment AppList.
-     */
-    // TODO: Rename and change types and number of parameters
     public static AppList newInstance() {
         AppList fragment = new AppList();
         Bundle args = new Bundle();
-
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Set title bar
-        ((MainActivity) getActivity())
-                .setActionBarTitle(getResources().getString(R.string.app_list));
 
     }
     public void setPassedData(String token,String selectedCategory) {
@@ -78,25 +50,33 @@ ListView appListView;
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_app_list, container, false);
 
+        getActivity().setTitle(selectedCategory);
+
+
         DataServices.getAppsByCategory(tokenValue, selectedCategory, new DataServices.DataResponse<DataServices.App>() {
             @Override
             public void onSuccess(ArrayList<DataServices.App> data) {
                 appListData=data;
+
             }
 
             @Override
             public void onFailure(DataServices.RequestException exception) {
-
+                Toast.makeText(getActivity().getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         appListView=view.findViewById(R.id.appListView);
-        rowItemAdapter=new AppListRowItemAdapter(getActivity().getApplicationContext(),R.layout.app_list_row_item,appListData);
-        appListView.setAdapter(rowItemAdapter);
+        if(appListData != null) {
+            rowItemAdapter = new AppListRowItemAdapter(getActivity().getApplicationContext(), R.layout.app_list_row_item, appListData);
+            appListView.setAdapter(rowItemAdapter);
+        }
+
         appListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DataServices.App row=appListData.get(position);
-            aListener.goToAppDetails(tokenValue,row);
+                // Set title bar
+                aListener.goToAppDetails(tokenValue,row);
             }
         });
         return view;
@@ -107,7 +87,7 @@ ListView appListView;
         if(context instanceof AppList.appListListener){
             aListener = (AppList.appListListener)context;
         }else{
-            throw new RuntimeException(context.toString()+"app list check");
+            throw new RuntimeException(context.getResources().getString(R.string.app_check));
         }
     }
     //Creating App List interface

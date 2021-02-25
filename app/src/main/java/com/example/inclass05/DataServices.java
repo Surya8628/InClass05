@@ -1,6 +1,13 @@
+
+/*
+ *Assignment In class 05
+ * FileName:DataServices
+ * Group 21
+ * Harshitha Govind-801212772
+ * Surya Teja Chintala-801212229
+ * */
+
 package com.example.inclass05;
-
-
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -224,7 +231,7 @@ import java.util.UUID;
         public static void register(String name, String email, String password, AuthResponse callback){
             if(name == null || name.isEmpty()){
                 callback.onFailure(new RequestException("Name cannot be empty!"));
-            } else if(email == null || email.isEmpty()){
+            } else if(email == null || email.isEmpty() || !email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")){
                 callback.onFailure(new RequestException("Email cannot be empty!"));
             } else if(password == null || password.isEmpty() ){
                 callback.onFailure(new RequestException("Password cannot be empty!"));
@@ -266,7 +273,7 @@ import java.util.UUID;
             if(token == null){
                 callback.onFailure(new RequestException("Token is required!"));
             } else {
-                Account account = authTokenAccountsMap.get(token);
+                Account  account = authTokenAccountsMap.get(token);
                 if(account == null){
                     callback.onFailure(new RequestException("Invalid token account not found!"));
                 } else {

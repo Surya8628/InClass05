@@ -20,34 +20,17 @@ import android.widget.TextView;
 
 import static com.example.inclass05.AppCategories.appRowDetails;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AppDetails#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class AppDetails extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+public class AppDetails extends Fragment {
 
     TextView applistAppname,appListArtistName,appListReleaseDate;
     ListView genreList;
     ArrayAdapter<String> adapter;
 
-
-
     public AppDetails() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-
-     * @return A new instance of fragment AppDetails.
-     */
-    // TODO: Rename and change types and number of parameters
     public static AppDetails newInstance() {
         AppDetails fragment = new AppDetails();
         Bundle args = new Bundle();
@@ -59,9 +42,6 @@ public class AppDetails extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Set title bar
-        ((MainActivity) getActivity())
-                .setActionBarTitle(getResources().getString(R.string.app_details));
 
     }
     public void setPassedData(String token,DataServices.App appDetails) {
@@ -73,6 +53,9 @@ public class AppDetails extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_app_details, container, false);
+        // Set title bar
+      getActivity().setTitle(getResources().getString(R.string.app_details));
+
         applistAppname=view.findViewById(R.id.applistAppname);
         appListArtistName= view.findViewById(R.id.appListArtistName);
         appListReleaseDate=view.findViewById(R.id.appListReleaseDate);
